@@ -11,10 +11,33 @@ export default class App extends React.Component {
    }
 
 
+   //slice of state to be able to input changes
 
    nameInputChange = evt => {
      const { value } = evt.target
      this.setState({ ...this.state, todoNameInput: value})
+   }
+
+
+
+   //post new todo
+   postNewTodo = () => {
+     axios.post(URL, { name: this.state.todoNameInput })
+     .then(res => {
+       this.fetchAllTodos()
+     })
+     .catch(err => {
+       this.setState({
+         ...this.state, error: err.response.data.message
+       })
+     })
+   }
+
+   //submit 
+
+   todoFormSubmit = evt => {
+     evt.preventDefault()
+     this.postNewTodo()
    }
 
    //helper to get all the todos 
@@ -53,7 +76,7 @@ export default class App extends React.Component {
           })
         }
       </div>
-      <form id = "todoForm">
+      <form id = "todoForm" onSubmit = {this.todoFormSubmit}>
         <input
         value = {this.state.todoNameInput}
         onChange = {this.nameInputChange}
