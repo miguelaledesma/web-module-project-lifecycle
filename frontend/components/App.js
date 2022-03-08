@@ -24,14 +24,13 @@ export default class App extends React.Component {
    postNewTodo = () => {
      axios.post(URL, { name: this.state.todoNameInput })
      .then(res => {
-       this.fetchAllTodos() 
+       this.setState({ ...this.state, todos: this.state.todos.concat(res.data.data)})
        this.resetForm()
      })
      .catch(this.setAxiosResponseError)
    }
 
-setAxiosResponseError = err => {this.setState({ ...this.state, error: err.response.data.message })
-}
+setAxiosResponseError = err => {this.setState({ ...this.state, error: err.response.data.message }) }
 
 
    //reset for the form 
@@ -76,7 +75,7 @@ setAxiosResponseError = err => {this.setState({ ...this.state, error: err.respon
         <h2>Todos:</h2>
         {
           this.state.todos.map(todo => {
-            return <div key ={todo.id} >{todo.name} </div>
+            return <div onClick = {this.toggleCompleted} key ={todo.id} >{todo.name} {todo.completed ? ' ✔️' : ''} </div>
             
           })
         }
