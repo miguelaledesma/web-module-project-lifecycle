@@ -62,6 +62,20 @@ setAxiosResponseError = err => {this.setState({ ...this.state, error: err.respon
 
    }
 
+   toggleCompleted = id => evt =>  {
+     axios.patch(`${URL}/${id}`)
+     .then(res => {
+       this.setState({ ...this.state, todos: this.state.todos.map(item => {
+         if(item.id !== id) {
+           return item
+         } else{
+           return res.data.data
+         }
+       })})
+      })
+     .catch(this.setAxiosResponseError)
+   }
+
    componentDidMount() {
      //fetch all the todos from the server 
      this.fetchAllTodos()
@@ -75,7 +89,7 @@ setAxiosResponseError = err => {this.setState({ ...this.state, error: err.respon
         <h2>Todos:</h2>
         {
           this.state.todos.map(todo => {
-            return <div onClick = {this.toggleCompleted} key ={todo.id} >{todo.name} {todo.completed ? ' ✔️' : ''} </div>
+            return <div onClick = {this.toggleCompleted(todo.id)} key ={todo.id} >{todo.name} {todo.completed ? ' ✔️' : ''} </div>
             
           })
         }
