@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Form from './Form'
 
 const URL = 'http://localhost:9000/api/todos'
 
@@ -109,21 +110,13 @@ setAxiosResponseError = err => {this.setState({ ...this.state, error: err.respon
           
         }
       </div>
-      <form id = "todoForm" onSubmit = {this.todoFormSubmit}>
-        <input
-        value = {this.state.todoNameInput}
-        onChange = {this.nameInputChange}
-         type = 'text'
-         placeholder = 'type todo'
-         /> 
-
-        <input 
-        type = 'submit'
-        />
-
-        
-      </form>
-      <button onClick= {this.toggleDisplayCompleted}> {this.state.displayCompleted ? 'Hide' : 'Show' } Completed</button> 
+      <Form 
+      todoFormSubmit = {this.todoFormSubmit}
+      todoNameInput = {this.todoNameInput}
+      nameInputChange = {this.nameInputChange}
+      toggleDisplayCompleted = {this.toggleDisplayCompleted}
+      displayCompleted = {this.state.displayCompleted}
+      /> 
 
       </div>
     )
