@@ -25,6 +25,9 @@ export default class App extends React.Component {
      axios.post(URL, { name: this.state.todoNameInput })
      .then(res => {
        this.fetchAllTodos()
+       this.setState({
+         ...this.state, todoNameInput: ''
+       })
      })
      .catch(err => {
        this.setState({
