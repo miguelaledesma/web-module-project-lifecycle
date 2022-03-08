@@ -101,7 +101,7 @@ setAxiosResponseError = err => {this.setState({ ...this.state, error: err.respon
           this.state.todos.reduce((acc, todo) => {
             
             if(this.state.displayCompleted || todo.completed) return acc.concat(
-              <div onClick = {this.toggleCompleted(todo.id)} key ={todo.id} >{todo.name} {todo.completed ? ' ✔️' : ''} </div>
+              <div onClick = {this.toggleCompleted(todo.id)} key ={todo.id} >{todo.name} {todo.completed ? ' ' : '✔️'} </div>
             )
             return acc
           }, [])
